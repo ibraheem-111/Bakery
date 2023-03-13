@@ -1,4 +1,4 @@
-const getProducts = "SELECT * FROM product";
+const getProducts = "SELECT p.name,p.price,stock.amount FROM product as p join stock on (p.pid=stock.pid)";
 
 const checkEmailExists=(email)=>{return `SELECT cid FROM customer WHERE email = '${email}'`;}
 
@@ -12,7 +12,10 @@ const updateAmount= (pid,amount)=>{return `update stock set amount = ${amount} w
 
 const createReceipt= (pid,cid,amount)=>{return `insert into receipt(pid,cid,amount) values ('${pid}','${cid}',${amount})`;}
 
-const showReceipts = "Select * from receipt";
+const getCid= (name)=>{return `select cid from customer where name = '${name}'` }
+// const showLastRecepits= ;
+
+const showReceipts = "Select * from receipt_view limit 1";
 
 export default {
     getProducts,
@@ -23,4 +26,5 @@ export default {
     updateAmount,
     createReceipt,
     showReceipts,
+    getCid,
 };
