@@ -53,8 +53,40 @@ function searchForProduct(req,res){
     }
 }
 
+function searchForEmployee(req,res){
+    const {body:{name=null,email=null}}=req;
+
+    if (name!=null){
+
+        pool.query(queries.searchForEmployee('name', name),(err, results)=>{
+            try{
+                if(err) throw err;
+                res.status(200).json(results.rows);
+            }catch{
+                res.status(500).send("Internal Server Error")
+            }
+        });
+
+    }else if(email !=null&&name==null){
+
+        pool.query(queries.searchForEmployee('email', email),(err, results)=>{
+            try{
+                if(err) throw err;
+                res.status(200).json(results.rows);
+            }catch{
+                res.status(500).send("Internal Server Error")
+            }
+        });
+
+    }else {
+
+        res.status(400).send("400 : Bad Request. Both email and name can't be null");
+
+    }
+}
 
 export default {
     searchForCustomer,
     searchForProduct,
+    searchForEmployee,
 }

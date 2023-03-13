@@ -11,4 +11,8 @@ router.get("/products", (req,res)=>{
     controller.searchForProduct(req,res)
 });
 
+router.get("/employee", (req,res)=>{
+    controller.searchForEmployee(req,res)
+});
+
 export default router;
